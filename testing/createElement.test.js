@@ -7,3 +7,8 @@ const output = createElement(
 );
 
 console.log(output);
+
+// {
+//     type: 'div',
+//     props: { id: 'firstDiv', className: 'divv', children: [ undefined ] }
+//   }

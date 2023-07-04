@@ -1,7 +1,7 @@
 export function createDOMElement(
   elementName,
-  childNodesArray = [],
-  customDomObject = {}
+  customDomObject = {},
+  childNodesArray = []
 ) {
   const element = document.createElement(elementName);
   assignAttributes(element, customDomObject);
