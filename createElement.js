@@ -1,26 +1,16 @@
-element = {
-  type: "div",
-  props: {
-    title: "foo",
-    children: {
-      type: "h1",
-    },
-  },
-};
-
-function createElement(type, props, ...children) {
+export function createElement(type, props = {}, ...children) {
   return {
     type: type,
     props: {
       ...props,
       children: children.map((child) => {
-        typeof child === "object" ? child : creaetTextElement(child);
+        typeof child === "object" ? child : createTextElement(child);
       }),
     },
   };
 }
 
-function creaetTextElement(text) {
+function createTextElement(text) {
   return {
     type: "TEXT_ELEMENT",
     props: {
