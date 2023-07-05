@@ -18,3 +18,8 @@ function assignAttributes(element, object1) {
     }
   }
 }
+
+export function createTextNode(text) {
+  const textNode = document.createTextNode(text);
+  return textNode;
+}

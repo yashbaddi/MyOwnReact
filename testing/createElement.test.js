@@ -6,7 +6,7 @@ const output = createElement(
   createElement("h1", { id: "second" })
 );
 
-console.log(output);
+// console.log(output);
 
 // {
 //     type: 'div',

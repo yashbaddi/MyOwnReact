@@ -1,11 +1,14 @@
-import { createDOMElement } from "./createDOMElement.js";
+import { createDOMElement, createTextNode } from "./createDOMElement.js";
 
 export function render(element, container) {
-  const children = element.props.children;
-  delete element.props.children;
-  const DOMElement = createDOMElement(element.type, element.props);
-  element.props.children.forEach((child) => {
-    render(child, DOMElement);
+  //   console.log(element);
+  const DOMElement =
+    element.type === "TEXT_ELEMENT"
+      ? createTextNode(element.props.nodeValue)
+      : createDOMElement(element.type, element.props);
+  element.children.forEach((child) => {
+    // console.log(child);
+    if (child !== undefined) render(child, DOMElement);
   });
 
   container.append(DOMElement);
