@@ -1,8 +1,11 @@
-export function render(element, container) {
-  element.props.forEach((child) => {
-    // console.lchildrenog(child);
-    if (child !== undefined) render(child, DOMElement);
-  });
+import performUnitOfWork from "../Utils/performanceUnitWork.js";
+import workLoopGenerator from "../Utils/workLoopGenerator.js";
 
-  container.append(DOMElement);
+export function render(element, container) {
+  const rootFiber = {
+    dom: container,
+    props: element.props,
+  };
+
+  workLoopGenerator(performUnitOfWork, rootFiber);
 }

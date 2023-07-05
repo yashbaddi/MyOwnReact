@@ -1,5 +1,9 @@
-export default function workLoopGenerator(performUnitOfWork) {
-  let nextUnitOfWork = null;
+export default function workLoopGenerator(
+  performUnitOfWork,
+  firstUnitofWork,
+  postDeadline = () => {}
+) {
+  let nextUnitOfWork = firstUnitofWork;
 
   function workLoop(deadline) {
     let shouldYield = false;
@@ -7,6 +11,7 @@ export default function workLoopGenerator(performUnitOfWork) {
       nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
       shouldYield = deadline.timeRemaining() < 1;
     }
+    postDeadline();
     requestIdleCallback(workLoop);
   }
 

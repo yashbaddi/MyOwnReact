@@ -1,4 +1,4 @@
-import { createDOM } from "./createDOM";
+import { createDOM } from "./createDOM.js";
 
 export default function performUnitOfWork(fiber) {
   //Add dom
@@ -9,6 +9,7 @@ export default function performUnitOfWork(fiber) {
   if (fiber.parent) {
     fiber.parent.dom.append(fiber.dom);
   }
+
   //create new Fibers
   createNewFibers(fiber);
 
@@ -18,15 +19,6 @@ export default function performUnitOfWork(fiber) {
   }
 
   return getNextFiberSibling(fiber);
-}
-
-function generateNewFiber(element, parentFiber) {
-  return {
-    type: element.type,
-    props: element.props,
-    parent: parentFiber,
-    dom: null,
-  };
 }
 
 function getNextFiberSibling(fiber) {
@@ -51,4 +43,13 @@ function createNewFibers(fiber) {
     }
     prevSibling = fiber;
   });
+}
+
+function generateNewFiber(element, parentFiber) {
+  return {
+    type: element.type,
+    props: element.props,
+    parent: parentFiber,
+    dom: null,
+  };
 }

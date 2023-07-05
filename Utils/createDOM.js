@@ -4,17 +4,17 @@ export function createDOM(fiber) {
   const filteredProps = propsWithoutChildren(fiber.props);
   const DOMElement =
     fiber.type === "TEXT_ELEMENT"
-      ? createTextNode(element.props.nodeValue)
-      : createDOMElement(element.type, filteredProps);
+      ? createTextNode(fiber.props.nodeValue)
+      : createDOMElement(fiber.type, filteredProps);
   return DOMElement;
 }
 
 function propsWithoutChildren(props) {
   const filtered = Object.keys(props)
-    .filter((key) => key != "children")
+    .filter((key) => key !== "children")
     .reduce((obj, key) => {
       return Object.assign(obj, {
-        [key]: user[key],
+        key: props[key],
       });
     }, {});
 

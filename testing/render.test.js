@@ -1,5 +1,5 @@
-import { render } from "../render.js";
-import { createElement } from "../createElement.js";
+import { render } from "../src/render.js";
+import { createElement } from "../src/createElement.js";
 
 const root = document.getElementById("root");
 const outputCreateElement = createElement(
