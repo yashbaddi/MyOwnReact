@@ -12,6 +12,8 @@ function workLoop(deadline) {
 requestIdleCallback(workLoop);
 
 function performUnitOfWork(fiber) {
+  //add the element to the DOM
+
   if (!fiber.dom) {
     fiber.dom = createDom(fiber);
   }
@@ -20,7 +22,8 @@ function performUnitOfWork(fiber) {
     fiber.parent.dom.appendChild(fiber.dom);
   }
 
-  const elements = fiber.children;
+  //create the fibers for the element’s children
+  const elements = fiber.props.children;
   let index = 0;
   let prevSibling = null;
 
@@ -30,7 +33,6 @@ function performUnitOfWork(fiber) {
     const newFiber = {
       type: element.type,
       props: element.props,
-      children: element.children,
       parent: fiber,
       dom: null,
     };
@@ -44,6 +46,8 @@ function performUnitOfWork(fiber) {
     prevSibling = newFiber;
     index++;
   }
+
+  //select the next unit of work
 
   if (fiber.child) {
     return fiber.child;

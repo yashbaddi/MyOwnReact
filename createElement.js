@@ -4,14 +4,16 @@ export function createElement(type, props = {}, ...children) {
     type: type,
     props: {
       ...props,
+      children:
+        children !== undefined
+          ? children.map((child) => {
+              console.log(child);
+              return typeof child === "object"
+                ? child
+                : createTextElement(child);
+            })
+          : [],
     },
-    children:
-      children !== undefined
-        ? children.map((child) => {
-            console.log(child);
-            return typeof child === "object" ? child : createTextElement(child);
-          })
-        : [],
   };
 }
 
@@ -20,7 +22,7 @@ function createTextElement(text) {
     type: "TEXT_ELEMENT",
     props: {
       nodeValue: text,
+      children: [],
     },
-    children: [],
   };
 }

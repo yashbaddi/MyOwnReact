@@ -1,13 +1,6 @@
-import { createDOMElement, createTextNode } from "./DOMManupulation.js";
-
 export function render(element, container) {
-  //   console.log(element);
-  const DOMElement =
-    element.type === "TEXT_ELEMENT"
-      ? createTextNode(element.props.nodeValue)
-      : createDOMElement(element.type, element.props);
-  element.children.forEach((child) => {
-    // console.log(child);
+  element.props.forEach((child) => {
+    // console.lchildrenog(child);
     if (child !== undefined) render(child, DOMElement);
   });
 
