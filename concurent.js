@@ -20,7 +20,7 @@ function performUnitOfWork(fiber) {
     fiber.parent.dom.appendChild(fiber.dom);
   }
 
-  const elements = fiber.props.children;
+  const elements = fiber.children;
   let index = 0;
   let prevSibling = null;
 
@@ -30,6 +30,7 @@ function performUnitOfWork(fiber) {
     const newFiber = {
       type: element.type,
       props: element.props,
+      children: element.children,
       parent: fiber,
       dom: null,
     };
@@ -48,6 +49,7 @@ function performUnitOfWork(fiber) {
     return fiber.child;
   }
   let nextFiber = fiber;
+
   while (nextFiber) {
     if (nextFiber.sibling) {
       return nextFiber.sibling;
