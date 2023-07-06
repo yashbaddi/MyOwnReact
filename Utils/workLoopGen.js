@@ -7,6 +7,7 @@ export default function workLoopGen(
 
   function workLoop(deadline) {
     let shouldYield = false;
+    console.log();
     while (nextUnitOfWork && !shouldYield) {
       nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
       shouldYield = deadline.timeRemaining() < 1;

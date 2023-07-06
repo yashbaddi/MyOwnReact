@@ -6,17 +6,11 @@ export default function performUnitOfWork(fiber) {
     fiber.dom = createDOM(fiber);
   }
 
-  if (fiber.parent) {
-    fiber.parent.dom.append(fiber.dom);
-    console.log("fiber:", fiber);
-  }
-
   //create new Fibers
   createNewFibers(fiber);
 
   //Get Next fibers
   if (fiber.child) {
-    console.log("child fib:", fiber);
     return fiber.child;
   }
 
@@ -27,7 +21,10 @@ function getNextFiberSibling(fiber) {
   let nextFiber = fiber;
 
   while (nextFiber) {
-    if (nextFiber.sibling) return nextFiber.sibling;
+    console.log("sibling check", nextFiber);
+    if (nextFiber.sibling) {
+      return nextFiber.sibling;
+    }
     nextFiber = nextFiber.parent;
   }
   return null;
@@ -44,12 +41,11 @@ function createNewFibers(fiber) {
     } else {
       prevSibling.sibling = newFiber;
     }
-    prevSibling = fiber;
+    prevSibling = newFiber;
   });
 }
 
 function generateNewFiber(element, parentFiber) {
-  console.log(element);
   return {
     type: element.type,
     props: element.props,
