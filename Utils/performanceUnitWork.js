@@ -8,6 +8,7 @@ export default function performUnitOfWork(fiber) {
 
   if (fiber.parent) {
     fiber.parent.dom.append(fiber.dom);
+    console.log("fiber:", fiber);
   }
 
   //create new Fibers
@@ -15,6 +16,7 @@ export default function performUnitOfWork(fiber) {
 
   //Get Next fibers
   if (fiber.child) {
+    console.log("child fib:", fiber);
     return fiber.child;
   }
 
@@ -28,6 +30,7 @@ function getNextFiberSibling(fiber) {
     if (nextFiber.sibling) return nextFiber.sibling;
     nextFiber = nextFiber.parent;
   }
+  return null;
 }
 
 function createNewFibers(fiber) {
@@ -46,6 +49,7 @@ function createNewFibers(fiber) {
 }
 
 function generateNewFiber(element, parentFiber) {
+  console.log(element);
   return {
     type: element.type,
     props: element.props,
