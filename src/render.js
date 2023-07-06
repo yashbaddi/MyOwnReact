@@ -6,6 +6,7 @@ export function render(element, container) {
   const rootFiber = {
     dom: container,
     props: element.props,
+    alternate: null,
   };
 
   const commitRoot = commitRootGen(rootFiber);

@@ -1,8 +1,10 @@
 export default function commitRootGen(root) {
   let workInProgressRoot = root;
+  let currentRoot = workInProgressRoot;
   function commitRoot() {
     if (workInProgressRoot) {
       commitWork(workInProgressRoot.child);
+      currentRoot = workInProgressRoot;
       workInProgressRoot = null;
     }
   }
