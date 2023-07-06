@@ -1,5 +1,6 @@
+import commitRootGen from "../Utils/commitRootGen.js";
 import performUnitOfWork from "../Utils/performanceUnitWork.js";
-import workLoopGenerator from "../Utils/workLoopGenerator.js";
+import workLoopGen from "../Utils/workLoopGen.js";
 
 export function render(element, container) {
   const rootFiber = {
@@ -7,5 +8,8 @@ export function render(element, container) {
     props: element.props,
   };
 
-  workLoopGenerator(performUnitOfWork, rootFiber);
+  const commitRoot = commitRootGen(rootFiber);
+  workLoopGen(performUnitOfWork, rootFiber, () => {
+    commitRoot();
+  });
 }
