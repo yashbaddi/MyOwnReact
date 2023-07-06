@@ -7,7 +7,7 @@ export default function performUnitOfWork(fiber) {
   }
 
   //create new Fibers
-  createNewFibers(fiber);
+  reconcileChildren(fiber);
 
   //Get Next fibers
   if (fiber.child) {
@@ -30,12 +30,18 @@ function getNextFiberSibling(fiber) {
   return null;
 }
 
-function createNewFibers(fiber) {
+function reconcileChildren(fiber) {
   const elementsChilrens = fiber.props.children;
+  let oldFiber = fiber.alternate && fiber.alternate.child;
+
   let prevSibling = null;
 
   elementsChilrens.forEach((element, index) => {
-    const newFiber = generateNewFiber(element, fiber);
+    const newFiber = generateNewFiber(fiber, oldFiber, element);
+    if (oldFiber) {
+      oldFiber = oldFiber.sibling;
+    }
+
     if (index == 0) {
       fiber.child = newFiber;
     } else {
@@ -45,11 +51,32 @@ function createNewFibers(fiber) {
   });
 }
 
-function generateNewFiber(element, parentFiber) {
-  return {
-    type: element.type,
-    props: element.props,
-    parent: parentFiber,
-    dom: null,
-  };
+function generateNewFiber(fiber, oldFiber, element) {
+  const sameType = oldFiber && element & (element.type === oldFiber.type);
+  let newFiber = null;
+  if (sameType) {
+    newFiber = {
+      type: element.type,
+      props: element.props,
+      dom: null,
+      parent: fiber,
+      alternate: oldFiber,
+      effectTag: "UPDATE",
+    };
+  }
+  if (element && !sameType) {
+    newFiber = {
+      type: element.type,
+      props: element.props,
+      dom: null,
+      parent: fiber,
+      alternate: null,
+      effectTag: "PLACEMENT",
+    };
+  }
+  if (oldFiber && !sameType) {
+    oldFiber.effectTag = "DELETION";
+    deleteDomList.push(oldFiber);
+  }
+  return newFiber;
 }
