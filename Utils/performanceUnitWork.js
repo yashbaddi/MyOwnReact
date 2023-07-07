@@ -1,13 +1,11 @@
 import { createDOM } from "./createDOM.js";
 
 export default function performUnitOfWork(fiber) {
-  //Add dom
-  if (!fiber.dom) {
-    fiber.dom = createDOM(fiber);
+  if (typeof fiber.type == "function") {
+    updateFunctionComponents(fiber);
+  } else {
+    updateHostComponents(fiber);
   }
-
-  //create new Fibers
-  reconcileChildren(fiber);
 
   //Get Next fibers
   if (fiber.child) {
@@ -15,6 +13,20 @@ export default function performUnitOfWork(fiber) {
   }
 
   return getNextFiberSibling(fiber);
+}
+
+function updateHostComponents(fiber) {
+  if (!fiber.dom) {
+    fiber.dom = createDOM(fiber);
+  }
+  const elementsChilrens = fiber.props.children;
+
+  reconcileChildren(fiber, elementsChilrens);
+}
+
+function updateFunctionComponents(fiber) {
+  const children = [fiber.type(fiber.props)];
+  reconcileChildren(fiber, children);
 }
 
 function getNextFiberSibling(fiber) {
@@ -30,13 +42,12 @@ function getNextFiberSibling(fiber) {
   return null;
 }
 
-function reconcileChildren(fiber) {
-  const elementsChilrens = fiber.props.children;
+function reconcileChildren(fiber, elements) {
   let oldFiber = fiber.alternate && fiber.alternate.child;
 
   let prevSibling = null;
 
-  elementsChilrens.forEach((element, index) => {
+  elements.forEach((element, index) => {
     const newFiber = generateNewFiber(fiber, oldFiber, element);
     if (oldFiber) {
       oldFiber = oldFiber.sibling;

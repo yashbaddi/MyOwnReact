@@ -17,13 +17,17 @@ function commitWork(fiber) {
   if (!fiber) {
     return;
   }
-  const parentDom = fiber.parent.dom;
+  const parentFiber = fiber.parent;
+  while (!parentFiber.dom) {
+    parentFiber = parentFiber.parent;
+  }
+  const parentDom = parentFiber.dom;
 
   if (fiber.effectTag === "PLACEMENT") {
     parentDom.append(fiber.dom);
   }
   if (fiber.effectTag === "DELETE") {
-    fiber.dom.remove();
+    commitDeletion(fiber, parentDom);
   }
   if (fiber.effectTag === "UPDATE") {
     updateDom(fiber.dom, fiber.props, fiber.alternate.props);
@@ -31,4 +35,12 @@ function commitWork(fiber) {
 
   commitWork(fiber.child);
   commitWork(fiber.sibling);
+}
+
+function commitDeletion(fiber, parentDOM) {
+  if (fiber.dom) {
+    fiber.dom.remove();
+  } else {
+    commitDeletion(fiber.child, parentDOM);
+  }
 }
