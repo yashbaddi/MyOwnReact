@@ -1,0 +1,4 @@
+{
+    "presets": [["@babel/preset-react",{"pragma":"MyReact.createElement"}],["@babel/preset-env", { "modules": "commonjs" }]]
+
+  }
