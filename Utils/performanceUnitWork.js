@@ -26,7 +26,7 @@ function updateHostComponents(fiber) {
 }
 
 function updateFunctionComponents(fiber) {
-  const children = [fiber.type(fiber.props)];
+  const children = [fiber.type(fiber)];
   reconcileChildren(fiber, children);
 }
 
