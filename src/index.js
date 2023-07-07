@@ -9,6 +9,10 @@ export const MyReact = {
 };
 
 //Testing
-const jsxdata = <h1>Hi</h1>;
+
+function App({ props }) {
+  return <h1>Hi {props.name}</h1>;
+}
+const jsxdata = <App name="foo" />;
 console.log(jsxdata);
 MyReact.render(jsxdata, root);

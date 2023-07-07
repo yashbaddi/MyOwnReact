@@ -5,6 +5,7 @@ import workLoopGen from "../Utils/workLoopGen.js";
 export function render(element, container) {
   const rootFiber = {
     dom: container,
+    type: element.type,
     props: element.props,
     alternate: null,
   };

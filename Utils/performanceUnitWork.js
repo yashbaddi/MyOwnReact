@@ -1,7 +1,8 @@
 import { createDOM } from "./createDOM.js";
 
 export default function performUnitOfWork(fiber) {
-  if (typeof fiber.type == "function") {
+  console.log(fiber);
+  if (fiber.type instanceof Function) {
     updateFunctionComponents(fiber);
   } else {
     updateHostComponents(fiber);
