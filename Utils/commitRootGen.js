@@ -1,3 +1,5 @@
+import updateDom from "./updateDom";
+
 export default function commitRootGen(root) {
   let workInProgressRoot = root;
   let currentRoot = workInProgressRoot;
