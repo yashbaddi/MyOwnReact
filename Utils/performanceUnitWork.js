@@ -33,7 +33,6 @@ function getNextFiberSibling(fiber) {
   let nextFiber = fiber;
 
   while (nextFiber) {
-    console.log("sibling check", nextFiber);
     if (nextFiber.sibling) {
       return nextFiber.sibling;
     }
