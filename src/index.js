@@ -22,7 +22,7 @@ export const MyReact = {
 function App({ props }) {
   //   return <h1>Hi {props.name}</h1>;
   let val = 0;
-  return <h1 onClick={() => console.log(val)}>Count: {val}</h1>;
+  return <h1 onClick={() => console.log("val")}>Count: {val}</h1>;
 }
 const jsxdata = <App name="foo" />;
 

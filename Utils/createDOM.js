@@ -14,7 +14,7 @@ function propsWithoutChildren(props) {
     .filter((key) => key !== "children")
     .reduce((obj, key) => {
       return Object.assign(obj, {
-        key: props[key],
+        [key]: props[key],
       });
     }, {});
 
