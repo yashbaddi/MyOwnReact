@@ -7,6 +7,7 @@ export default function reconcileChildren(fiber, elements) {
 
   elements.forEach((element, index) => {
     const newFiber = getNewFiber(fiber, oldFiber, element);
+    console.log("fiber=", fiber, "OLD=", oldFiber, "new=", newFiber);
     if (oldFiber) {
       oldFiber = oldFiber.sibling;
     }

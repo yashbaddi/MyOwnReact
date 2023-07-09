@@ -11,7 +11,6 @@ export function createDOMElement(
 
 export function assignAttributes(element, object1) {
   for (const [key, value] of Object.entries(object1)) {
-    console.log(element, key, value);
     if (element[key] !== undefined) {
       element[key] = value;
     } else {

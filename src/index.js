@@ -14,18 +14,16 @@ export const MyReact = {
 
 // function App({ props }) {
 //   //   return <h1>Hi {props.name}</h1>;
-//   const [state, setState] = MyReact.useState(1);
-//   return <h1 onClick={() => console.log(state)}>Count: {state}</h1>;
-//   setState((c) => c + 1);
+//   let val = 0;
+//   return <button onclick={() => console.log("val")}>Count: {val}</button>;
 // }
+// const jsxdata = <App name="foo" />;
 
-function App({ props }) {
-  //   return <h1>Hi {props.name}</h1>;
-  let val = 0;
-  return <h1 onClick={() => console.log("val")}>Count: {val}</h1>;
+function Counter() {
+  const [state, setState] = MyReact.useState(1);
+  return <h1 onclick={() => setState((c) => c + 1)}>Count: {state}</h1>;
 }
-const jsxdata = <App name="foo" />;
-
+const jsxdata = <Counter />;
 console.log(jsxdata);
 MyReact.render(jsxdata, root);
 
