@@ -1,5 +1,6 @@
+import { changeNextUnitOfWork } from "../Utils/workLoopGen";
+
 let currentFiber = null;
-let hooksIndex = 0;
 
 export const setCurrentFunctionFiber = (fiber) => (currentFiber = fiber);
 export const clearCurrentFunctionFiber = () => (currentFiber = null);
@@ -19,9 +20,11 @@ export default function useState(initial) {
   actions.forEach((action) => {
     hook.state = action(hook.state);
   });
-
+  const workingFiber = currentFiber;
   function setState(action) {
     hook.queue.push(action);
+    console;
+    changeNextUnitOfWork(workingFiber);
   }
   currentFiber.hooks.push(hook);
   return [hook.state, setState];
