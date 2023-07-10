@@ -2,12 +2,9 @@ import getNewFiber from "./getNewFiber.js";
 
 export default function reconcileChildren(fiber, elements) {
   let oldFiber = fiber.alternate && fiber.alternate.child;
-
   let prevSibling = null;
-  console.log("elements", elements);
   elements.forEach((element, index) => {
     const newFiber = getNewFiber(fiber, oldFiber, element);
-    console.log("fiber=", fiber, "OLD=", oldFiber, "new=", newFiber);
     if (oldFiber) {
       oldFiber = oldFiber.sibling;
     }

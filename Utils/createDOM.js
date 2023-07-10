@@ -1,7 +1,6 @@
 import { createDOMElement, createTextNode } from "./DOMManupulation.js";
 
 export function createDOM(fiber) {
-  console.log(fiber);
   const filteredProps = propsWithoutChildren(fiber.props);
   const DOMElement =
     fiber.type === "TEXT_ELEMENT"

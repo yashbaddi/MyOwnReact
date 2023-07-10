@@ -28,8 +28,8 @@ export default function updateDom(dom, prevProps, nextProps) {
     .filter(isProperty)
     .filter(isNew(prevProps, nextProps))
     .forEach((name) => {
-      // dom[name] = nextProps[name];
-      assignAttributes(dom, nextProps);
+      dom[name] = nextProps[name];
+      // assignAttributes(dom, nextProps);
     });
 
   // Add event listeners

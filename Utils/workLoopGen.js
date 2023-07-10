@@ -1,13 +1,17 @@
+import { setWorkInProgressRoot } from "./commitRootGen";
+
+let nextUnitOfWork = null;
 export default function workLoopGen(
   performUnitOfWork,
   firstUnitofWork,
   postDeadline = () => {}
 ) {
-  let nextUnitOfWork = firstUnitofWork;
+  nextUnitOfWork = firstUnitofWork;
 
   function workLoop(deadline) {
     let shouldYield = false;
     while (nextUnitOfWork && !shouldYield) {
+      console.log("next unit of work", nextUnitOfWork);
       nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
       shouldYield = deadline.timeRemaining() < 1;
     }
@@ -18,4 +22,9 @@ export default function workLoopGen(
   }
 
   requestIdleCallback(workLoop);
+}
+
+export function changeNextUnitOfWork(fiber) {
+  setWorkInProgressRoot(fiber);
+  nextUnitOfWork = fiber;
 }
