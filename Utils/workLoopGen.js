@@ -1,3 +1,5 @@
+import { setWorkInProgressRoot } from "./commitRootGen";
+
 let nextUnitOfWork = null;
 export default function workLoopGen(
   performUnitOfWork,
@@ -23,5 +25,6 @@ export default function workLoopGen(
 }
 
 export function changeNextUnitOfWork(fiber) {
+  setWorkInProgressRoot(fiber);
   nextUnitOfWork = fiber;
 }

@@ -1,6 +1,8 @@
+import { setWorkInProgressRoot } from "../Utils/commitRootGen";
 import { changeNextUnitOfWork } from "../Utils/workLoopGen";
 
 let currentFiber = null;
+let hookIndex = 0;
 
 export const setCurrentFunctionFiber = (fiber) => (currentFiber = fiber);
 export const clearCurrentFunctionFiber = () => (currentFiber = null);
@@ -9,7 +11,7 @@ export default function useState(initial) {
   const oldHook =
     currentFiber.alternate &&
     currentFiber.alternate.hooks &&
-    currentFiber.alternate.hooks.length;
+    currentFiber.alternate.hooks[hookIndex];
 
   const hook = {
     state: oldHook ? oldHook.state : initial,
@@ -20,12 +22,14 @@ export default function useState(initial) {
   actions.forEach((action) => {
     hook.state = action(hook.state);
   });
+  currentFiber.hooks[hookIndex] = hook;
+  currentFiber.alternate = currentFiber;
   const workingFiber = currentFiber;
+
   function setState(action) {
     hook.queue.push(action);
-    console;
     changeNextUnitOfWork(workingFiber);
   }
-  currentFiber.hooks.push(hook);
+
   return [hook.state, setState];
 }

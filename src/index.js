@@ -19,6 +19,9 @@ export const MyReact = {
 // }
 // const jsxdata = <App name="foo" />;
 
+function App() {
+  return <Counter />;
+}
 function Counter() {
   const [state, setState] = MyReact.useState(1);
   console.log("state", state);
@@ -28,7 +31,7 @@ function Counter() {
     </div>
   );
 }
-const jsxdata = <Counter />;
+const jsxdata = <App />;
 console.log(jsxdata);
 MyReact.render(jsxdata, root);
 

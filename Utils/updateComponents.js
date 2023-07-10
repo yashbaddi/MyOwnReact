@@ -10,12 +10,11 @@ export function updateHostComponents(fiber) {
     fiber.dom = createDOM(fiber);
   }
   const elementsChilrens = fiber.props.children;
-  console.log("fiberUpdate", fiber);
   reconcileChildren(fiber, elementsChilrens);
 }
 
 export function updateFunctionComponents(fiber) {
-  fiber.hooks = [];
+  fiber.hooks = fiber.hooks ? fiber.hooks : [];
   setCurrentFunctionFiber(fiber);
   const children = [fiber.type(fiber)];
   reconcileChildren(fiber, children);

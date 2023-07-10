@@ -1,9 +1,10 @@
 import updateDom from "./updateDom";
 
 const deleteDomList = [];
+let workInProgressRoot = null;
 export default function commitRootGen(root) {
   deleteDomList.forEach((fiber) => commitWork(fiber));
-  let workInProgressRoot = root;
+  workInProgressRoot = root;
   let currentRoot = workInProgressRoot;
   function commitRoot() {
     if (workInProgressRoot) {
@@ -32,11 +33,15 @@ function commitWork(fiber) {
     commitDeletion(fiber, parentDom);
   }
   if (fiber.effectTag === "UPDATE" && fiber.dom !== null) {
-    updateDom(fiber.dom, fiber.props, fiber.alternate.props);
+    updateDom(fiber.dom, fiber.alternate.props, fiber.props);
   }
 
   commitWork(fiber.child);
   commitWork(fiber.sibling);
+}
+
+export function setWorkInProgressRoot(root) {
+  workInProgressRoot = root;
 }
 
 function commitDeletion(fiber, parentDOM) {

@@ -7,6 +7,7 @@ const isGone = (prev, next) => (key) => !(key in next);
 
 export default function updateDom(dom, prevProps, nextProps) {
   // //Remove old or changed event listeners
+  console.log("in update dom");
   Object.keys(prevProps)
     .filter(isEvent)
     .filter((key) => !(key in nextProps) || isNew(prevProps, nextProps)(key))
@@ -28,8 +29,9 @@ export default function updateDom(dom, prevProps, nextProps) {
     .filter(isProperty)
     .filter(isNew(prevProps, nextProps))
     .forEach((name) => {
-      // dom[name] = nextProps[name];
-      assignAttributes(dom, nextProps);
+      dom[name] = nextProps[name];
+      console.log(nextProps[name]);
+      // assignAttributes(dom, nextProps);
     });
 
   // Add event listeners
