@@ -9,7 +9,7 @@ export function createDOMElement(
   return element;
 }
 
-function assignAttributes(element, object1) {
+export function assignAttributes(element, object1) {
   for (const [key, value] of Object.entries(object1)) {
     if (element[key] !== undefined) {
       element[key] = value;
