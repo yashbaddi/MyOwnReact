@@ -1,4 +1,5 @@
 export function createElement(type, props = {}, ...children) {
+  console.log("create Element", type, props, children);
   return {
     type: type,
     props: {

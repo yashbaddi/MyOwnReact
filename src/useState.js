@@ -1,4 +1,5 @@
 let currentFiber = null;
+let hooksIndex = 0;
 
 export const setCurrentFunctionFiber = (fiber) => (currentFiber = fiber);
 export const clearCurrentFunctionFiber = () => (currentFiber = null);
@@ -10,7 +11,7 @@ export default function useState(initial) {
     currentFiber.alternate.hooks.length;
 
   const hook = {
-    state: oldHook ? oldHook.state : [],
+    state: oldHook ? oldHook.state : initial,
     queue: [],
   };
 

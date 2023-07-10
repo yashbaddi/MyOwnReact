@@ -21,7 +21,12 @@ export const MyReact = {
 
 function Counter() {
   const [state, setState] = MyReact.useState(1);
-  return <h1 onclick={() => setState((c) => c + 1)}>Count: {state}</h1>;
+  console.log("state", state);
+  return (
+    <div>
+      <h1 onclick={() => setState((c) => c + 1)}>Count: {state}</h1>
+    </div>
+  );
 }
 const jsxdata = <Counter />;
 console.log(jsxdata);
