@@ -2,7 +2,6 @@ import { addDeleteList } from "./commitRootGen";
 
 export default function getNewFiber(fiber, oldFiber, element) {
   const sameType = oldFiber && element && element.type === oldFiber.type;
-  console.log("isSameType", sameType);
   let newFiber = null;
 
   if (sameType) {

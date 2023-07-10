@@ -16,5 +16,4 @@ export default function reconcileChildren(fiber, elements) {
     }
     prevSibling = newFiber;
   });
-  console.log("endfiber:", fiber);
 }
